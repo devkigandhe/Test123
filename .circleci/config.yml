@@ -1,22 +1,12 @@
 jobs:
   build:
     machine: true
-    
+    environment:
+      MY_PAGE_SIZE: $myPageSize
     steps:
      - checkout
      - run: |
         echo $(env)
-        docker run -t -e PAGE_SIZE=$myPageSize -v $(pwd):/collection postman/newman run "/collection/Test Collection.postman_collection.json" -e "/collection/Test Env.postman_environment.json" --env-var pageSize=$PAGE_SIZE
+        docker run -t --entrypoint=/bin/bash -e PAGE_SIZE=${MY_PAGE_SIZE} -v $(pwd):/collection postman/newman env
 
-workflows:
-  version: 2
-  nightly:
-    triggers:
-      - schedule:
-          cron: "35 12 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
+
