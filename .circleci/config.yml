@@ -2,7 +2,7 @@ jobs:
   build:
     machine: true
     environment:
-      MY_PAGE_SIZE: $myPageSize
+      MY_PAGE_SIZE: ${myPageSize}
     steps:
      - checkout
      - run: |
