@@ -7,6 +7,6 @@ jobs:
      - checkout
      - run: |
         echo $(env)
-        docker run -t --entrypoint=/bin/sh -e PAGE_SIZE=${MY_PAGE_SIZE} -v $(pwd):/collection postman/newman set
+        docker run -t --entrypoint=/bin/sh -e PAGE_SIZE=${MY_PAGE_SIZE} -v $(pwd):/collection postman/newman echo $SHELL
 
 
