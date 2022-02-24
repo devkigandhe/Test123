@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "726df300-a015-45d1-ac1e-0f19d9d661cf",
+		"name": "Test Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code is 200 OK or 504\", () => {\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 504]);\r",
+							"    postman.setNextRequest();\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page={{pageSize}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{pageSize}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
