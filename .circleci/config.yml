@@ -7,3 +7,16 @@ jobs:
      - run: |
         echo $(env)
         docker run -t -e PAGE_SIZE=$myPageSize -v $(pwd):/collection postman/newman run "/collection/Test Collection.postman_collection.json" -e "/collection/Test Env.postman_environment.json" --env-var pageSize=$PAGE_SIZE
+
+workflows:
+  version: 2
+  nightly:
+    triggers:
+      - schedule:
+          cron: "*/5 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
