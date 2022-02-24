@@ -5,4 +5,4 @@ jobs:
     steps:
      - checkout
      - run: |
-        docker run -t postman/newman run "https://www.getpostman.com/collections/0d0350a9a89d39fb6361"
+        docker run -t -e PAGE_SIZE=$myPageSize -v .:/collection postman/newman run "/collection/Test Collection.postman_collection.json" -e "/collection/Test Env.postman_environment.json" --env-var pageSize=$PAGE_SIZE
