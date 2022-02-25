@@ -1,34 +1,13 @@
 jobs:
   build:
-    docker:
-      - image: circleci/node:10.16.3
+    machine: true
     steps:
       - checkout
-      - run:
-          name: Update NPM
-          command: "sudo npm install -g npm@5"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Dependencies
-          command: npm install
       - run: |
           name: Generate Report
           echo $myPageSize
-          docker run -t -v $(pwd):/collection postman/newman run "/collection/Test Collection.postman_collection.json" -e "/collection/Test Env.postman_environment.json"-r htmlextra --reporter-htmlextra-export "/collection/newman" --env-var pageSize=$myPageSize
+          docker run -t -v $(pwd):/collection node:12-slim /bin/bash /collection/setup.sh
       - store_artifacts:
-          path: ~/collection/newman 
+          path: /tmp/artifacts
         
-workflows:
-  version: 2
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
 
