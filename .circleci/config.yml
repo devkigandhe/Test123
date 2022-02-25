@@ -5,8 +5,8 @@ jobs:
       - checkout
       - run: |
           echo $myPageSize
-          docker run -t -v $(pwd):/collection node:12-slim /bin/bash /collection/setup.sh
+          docker run -t -v /tmp/artifacts:/temp -v $(pwd):/collection node:12-slim /bin/bash /collection/setup.sh
       - store_artifacts:
-          path: $(pwd)/reports.html
+          path: /tmp/artifacts
         
 
