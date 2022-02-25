@@ -4,10 +4,9 @@ jobs:
     steps:
       - checkout
       - run: |
-          name: Generate Report
           echo $myPageSize
           docker run -t -v $(pwd):/collection node:12-slim /bin/bash /collection/setup.sh
       - store_artifacts:
-          path: /tmp/artifacts
+          path: $(pwd)/reports.html
         
 
